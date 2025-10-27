@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 
 import styles from "./styles.module.css";
-import Header from "../../components/common/Header/Header";
+import { Header, Footer } from "../../components/common";
 const { container, wrapper } = styles;
 
 const MainLayout = () => {
@@ -9,6 +9,7 @@ const MainLayout = () => {
     <Container className={container}>
       <Header />
       <div className={wrapper}></div>
+      <Footer />
     </Container>
   );
 };
