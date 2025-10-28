@@ -15,34 +15,23 @@ const Categories = () => {
     dispatch(actGetCategories());
   }, [dispatch]);
 
+  const categoriesList =
+    records.length > 0
+      ? records.map((record) => (
+          <Col
+            key={record.id}
+            xs={6}
+            md={3}
+            className="d-flex justify-content-center mb-5 mt-2"
+          >
+            <Category {...record} />
+          </Col>
+        ))
+      : "There are no categories";
+
   return (
     <Container>
-      <Row>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-      </Row>
+      <Row>{categoriesList}</Row>
     </Container>
   );
 };
