@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import styles from "./styles.module.css";
 const { product, productImg } = styles;
 
-const Product = ({ title, cat_prefix, img, price }: TProduct) => {
+const Product = ({ title, img, price }: TProduct) => {
   return (
     <div className={product}>
       <div className={productImg}>
