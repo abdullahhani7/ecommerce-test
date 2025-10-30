@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 
 import { Container, Row, Col } from "react-bootstrap";
 import { Product } from "@components/eCommerce";
+import { Loading } from "@components/feedback";
+
 const Products = () => {
   const dispatch = useAppDispatch();
   const { records, loading, error } = useAppSelector((state) => state.products);
@@ -37,7 +39,9 @@ const Products = () => {
 
   return (
     <Container>
-      <Row>{productsList}</Row>
+      <Loading loading={loading} error={error}>
+        <Row>{productsList}</Row>
+      </Loading>
     </Container>
   );
 };
