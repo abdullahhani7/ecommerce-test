@@ -1,13 +1,18 @@
-import { Category } from "@components/eCommerce";
-import type { TCategory } from "@customTypes/category";
 import { Col, Row } from "react-bootstrap";
 
-type TGridListProps = {
-  records: TCategory[];
-  renderItem: (record: TCategory) => React.ReactNode;
+type TGridListProps<T> = {
+  records: T[];
+  renderItem: (record: T) => React.ReactNode;
 };
 
-const GridList = ({ records, renderItem }: TGridListProps) => {
+type HasId = {
+  id?: number;
+};
+
+const GridList = <T extends HasId>({
+  records,
+  renderItem,
+}: TGridListProps<T>) => {
   const categoriesList =
     records.length > 0
       ? records.map((record) => (

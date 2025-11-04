@@ -6,7 +6,8 @@ import {
 } from "@store/products/productsSlice";
 import { useParams } from "react-router-dom";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { GridList } from "@components/common";
 import { Product } from "@components/eCommerce";
 import { Loading } from "@components/feedback";
 
@@ -23,24 +24,13 @@ const Products = () => {
     };
   }, [dispatch, prefix]);
 
-  const productsList =
-    records.length > 0
-      ? records.map((record) => (
-          <Col
-            key={record.id}
-            xs={6}
-            md={3}
-            className="d-flex justify-content-center mb-5 mt-2"
-          >
-            <Product {...record} />
-          </Col>
-        ))
-      : "There are no categories";
-
   return (
     <Container>
       <Loading loading={loading} error={error}>
-        <Row>{productsList}</Row>
+        <GridList
+          records={records}
+          renderItem={(record) => <Product {...record} />}
+        />
       </Loading>
     </Container>
   );
