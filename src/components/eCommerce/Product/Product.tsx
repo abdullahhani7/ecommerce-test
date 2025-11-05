@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import type { TProduct } from "@customTypes/product";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/cart/cartSlice";
 import { Button, Spinner } from "react-bootstrap";
 
 import styles from "./styles.module.css";
-const { product, productImg } = styles;
+const { product, productImg, maximumNotice } = styles;
 
-const Product = ({ id, title, img, price }: TProduct) => {
+const Product = memo(({ id, title, img, price, max, quantity }: TProduct) => {
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
+
+  const currentRemainingQuantity = max - (quantity ?? 0);
+  const quantityReachedToMax = currentRemainingQuantity <= 0 ? true : false;
 
   useEffect(() => {
     if (!isBtnDisabled) {
@@ -35,11 +38,16 @@ const Product = ({ id, title, img, price }: TProduct) => {
       </div>
       <h2 title={title}>{title}</h2>
       <h3>{price} EGP</h3>
+      <p className={maximumNotice}>
+        {quantityReachedToMax
+          ? "You reached to the limit"
+          : `You can add ${currentRemainingQuantity} item(s) `}
+      </p>
       <Button
         variant="info"
         style={{ color: "white" }}
         onClick={addToCartHandler}
-        disabled={isBtnDisabled}
+        disabled={isBtnDisabled || quantityReachedToMax}
       >
         {isBtnDisabled ? (
           <>
@@ -51,6 +59,6 @@ const Product = ({ id, title, img, price }: TProduct) => {
       </Button>
     </div>
   );
-};
+});
 
 export default Product;
