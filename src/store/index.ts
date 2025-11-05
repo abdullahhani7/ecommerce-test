@@ -5,17 +5,23 @@ import categories from "./categories/categoriesSlice";
 import products from "./products/productsSlice";
 import cart from "./cart/cartSlice";
 
-const persistConfig = {
-  key: "root",
-  storage,
+ 
+
+const cartPersistConfig = {
+  key: "cart",
+  storage: storage,
+  whitelist: ["items"],
 };
 
-const rootReducer = combineReducers({ categories, products, cart });
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const rootReducer = combineReducers({
+  categories,
+  products,
+  cart: persistReducer(cartPersistConfig, cart),
+});
+ 
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
